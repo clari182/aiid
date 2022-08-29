@@ -33,66 +33,79 @@ const SimilarIncidentCard = ({ incident, flaggable = true, flagged, parentIncide
   const addToast = useToastContext();
 
   return (
-    <Card data-cy="similar-incident-card">
-      <a href={'/cite/' + incident.incident_id} data-cy="cite-link">
-        <Image
-          className="tw-object-cover tw-w-full tw-aspect-[16/9]"
-          publicID={
-            incident.reports[0].cloudinary_id || `legacy/${md5(incident.reports[0].image_url)}`
-          }
-          transformation={fill().height(480)}
-          alt=""
-        />
-        <h3>{locale == 'en' && incident.title ? incident.title : incident.reports[0].title}</h3>
-      </a>
-      <div className="tw-flex tw-w-full tw-flex-row tw-items-center tw-font-bold tw-mt-0 tw-my-4 tw-mr-4">
-        <div className="text-muted">
-          {parsedDate && (
-            <>
-              <time dateTime={formatISO(parsedDate)}>{format(parsedDate, 'MMM yyyy')}</time> ·{' '}
-            </>
-          )}
-          <span>
-            {incident.reports.length} {incident.reports.length == 1 ? t('report') : t('reports')}
-          </span>
-        </div>
-        <div className="tw-inline-block tw-ml-auto tw-mr-auto" />
-
-        {flaggable && (
-          <Button
-            variant="link"
-            className={`tw-flag-button ${isFlagged ? ' flagged' : ''}`}
-            data-cy="flag-similar-incident"
-            onClick={async () => {
-              await updateIncident({
-                variables: {
-                  query: { incident_id: parentIncident.incident_id },
-                  set: {
-                    flagged_dissimilar_incidents: isFlagged
-                      ? parentIncident.flagged_dissimilar_incidents.filter(
-                          (e) => e != incident.incident_id
-                        )
-                      : parentIncident.flagged_dissimilar_incidents
-                          .filter((e) => e != incident.incident_id)
-                          .concat([incident.incident_id]),
-                  },
-                },
-              });
-              addToast({
-                message: isFlagged
-                  ? t(`Flag reverted.`)
-                  : t(
-                      `Incident flagged successfully. Our editors will remove it from this list if it not relevant.`
-                    ),
-                severity: SEVERITY.success,
-              });
-              setFlagged(!isFlagged);
-            }}
-          >
-            <FontAwesomeIcon icon={faFlag} />
-          </Button>
-        )}
+    <Card
+      data-cy="similar-incident-card"
+      className="tw-border tw-flex tw-flex-col md:tw-flex-row tw-break tw-bg-white tw-min-w-0 tw-relative tw-rounded-t-lg md:tw-rounded-l-lg md:tw-rounded-r-none"
+    >
+      <div className="tw-flex tw-flex-col tw-w-full tw-max-w-full md:tw-w-2/6">
+        <a href={'/cite/' + incident.incident_id} data-cy="cite-link">
+          <Image
+            className="tw-object-cover tw-w-full tw-aspect-[16/9]"
+            publicID={
+              incident.reports[0].cloudinary_id || `legacy/${md5(incident.reports[0].image_url)}`
+            }
+            transformation={fill().height(480)}
+            alt=""
+          />
+        </a>
       </div>
+      <Card.Body>
+        <Card.Title as="h5">
+          <LocalizedLink to={'/cite/' + incident.incident_id}>
+            {locale == 'en' && incident.title ? incident.title : incident.reports[0].title}
+          </LocalizedLink>
+        </Card.Title>
+        <div className="text-muted tw-flex tw-flex-row tw-content-between">
+          <div className="tw-flex-1">
+            {parsedDate && (
+              <>
+                <time dateTime={formatISO(parsedDate)}>{format(parsedDate, 'MMM yyyy')}</time> ·{' '}
+              </>
+            )}
+            <span>
+              {incident.reports.length} {incident.reports.length == 1 ? t('report') : t('reports')}
+            </span>
+          </div>
+          {/* <div className="tw-inline-block tw-ml-auto tw-mr-auto" /> */}
+
+          {flaggable && (
+            <Button
+              variant="link"
+              className={`tw-flag-button ${
+                isFlagged ? ' flagged' : ''
+              } tw-flex tw-flex-row-reverse`}
+              data-cy="flag-similar-incident"
+              onClick={async () => {
+                await updateIncident({
+                  variables: {
+                    query: { incident_id: parentIncident.incident_id },
+                    set: {
+                      flagged_dissimilar_incidents: isFlagged
+                        ? parentIncident.flagged_dissimilar_incidents.filter(
+                            (e) => e != incident.incident_id
+                          )
+                        : parentIncident.flagged_dissimilar_incidents
+                            .filter((e) => e != incident.incident_id)
+                            .concat([incident.incident_id]),
+                    },
+                  },
+                });
+                addToast({
+                  message: isFlagged
+                    ? t(`Flag reverted.`)
+                    : t(
+                        `Incident flagged successfully. Our editors will remove it from this list if it not relevant.`
+                      ),
+                  severity: SEVERITY.success,
+                });
+                setFlagged(!isFlagged);
+              }}
+            >
+              <FontAwesomeIcon icon={faFlag} />
+            </Button>
+          )}
+        </div>
+      </Card.Body>
     </Card>
   );
 };
@@ -157,7 +170,7 @@ const SimilarIncidents = ({
 
       {nlp_only_incidents.length > 0 && (
         <>
-          <div className="tw-subtitle">
+          <div className="tw-subtitle tw-flex tw-flex-row tw-content-between">
             <Trans>By textual similarity</Trans>
             <span className="tw-actions-icons">
               {blogPostUrl && (
