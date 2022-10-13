@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Badge, Button } from 'flowbite-react';
+import { Button } from 'flowbite-react';
+import { LocalizedLink } from 'gatsby-theme-i18n';
+import NewSimilaritySelector from './NewSimilaritySelector';
 
 const RelatedIncidentsArea = ({ reports, incidents, loading }) => {
   const [, setListOpened] = useState(false);
@@ -27,8 +29,117 @@ const RelatedIncidentsArea = ({ reports, incidents, loading }) => {
   }
   return (
     <div className="flex flex-col mt-2">
-      <h5>Woah! These incidents seem to be related:</h5>
-      <div className="bootstrap flex gap-3  items-stretch">
+      {(reports || incidents) && (
+        <h5 className="text-sm">Woah! These incidents seem to be related:</h5>
+      )}
+      <div className=" flex gap-3  items-stretch">
+        {(reports || incidents) &&
+          (reports || incidents).map((val) => (
+            <>
+              <div className="flex-1 self-stretch h-full max-w-xs">
+                <div className="p-2 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+                  <div className="flex flex-col">
+                    <span className="text-md ">
+                      {val?.incident_id && (
+                        <LocalizedLink
+                          to={'/cite/' + val.incident_id}
+                          className="text-black hover:text-blue-600"
+                        >
+                          #{val.incident_id}
+                        </LocalizedLink>
+                      )}
+                    </span>
+                    <a
+                      href={val.url || '/cite/' + val.incident_id}
+                      data-cy="title"
+                      className="text-sm text-black hover:text-blue-600"
+                    >
+                      {val.title}
+                    </a>
+                    <span className="mt-2 text-xs">Is this incident related?</span>
+                    <div className="flex mt-2 justify-center items-center">
+                      <div className=" ">
+                        {/* <svg className="w-6 h-6 opacity-30" fill="red" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg>
+                  <svg className="w-6 h-6" fill="green" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> */}
+                        <NewSimilaritySelector incident_id={val.incident_id} />
+                      </div>
+                      <div className="flex justify-end flex-1">
+                        <Button size={'xs'}>
+                          <span className="text-gray-100">Use ID #{val.incident_id}</span>
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </>
+          ))}
+        <>
+          <div className="flex-1 self-stretch h-full max-w-xs">
+            <div className="p-2 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+              <div className="flex flex-col">
+                <span className="text-md ">
+                  <LocalizedLink to={'/cite/234'} className="text-black hover:text-blue-600">
+                    #234
+                  </LocalizedLink>
+                </span>
+                <a
+                  href={'' || '/cite/234'}
+                  data-cy="title"
+                  className="text-sm text-black hover:text-blue-600"
+                >
+                  This is the title of 234
+                </a>
+                <span className="mt-2 text-xs">Is this incident related?</span>
+                <div className="flex mt-2 justify-center items-center">
+                  <div className=" ">
+                    {/* <svg className="w-6 h-6 opacity-30" fill="red" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg>
+                    <svg className="w-6 h-6" fill="green" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> */}
+                    <NewSimilaritySelector incident_id="234" />
+                  </div>
+                  <div className="flex justify-end flex-1">
+                    <Button size={'xs'}>
+                      <span className="text-gray-100">Use ID #234</span>
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+        <>
+          <div className="flex-1 self-stretch h-full max-w-xs">
+            <div className="p-2 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+              <div className="flex flex-col">
+                <span className="text-md ">
+                  <LocalizedLink to={'/cite/567'} className="text-black hover:text-blue-600">
+                    #567
+                  </LocalizedLink>
+                </span>
+                <a
+                  href={'' || '/cite/567'}
+                  data-cy="title"
+                  className="text-sm text-black hover:text-blue-600"
+                >
+                  This is the title of 567
+                </a>
+                <span className="mt-2 text-xs">Is this incident related?</span>
+                <div className="flex mt-2 justify-center items-center">
+                  <div className=" ">
+                    {/* <svg className="w-6 h-6 opacity-30" fill="red" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg>
+                  <svg className="w-6 h-6" fill="green" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> */}
+                    <NewSimilaritySelector incident_id="567" />
+                  </div>
+                  <div className="flex justify-end flex-1">
+                    <Button size={'xs'}>
+                      <span className="text-gray-100">Use ID #567</span>
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
         {/* <ListContainer data-cy={`related-${columnKey}`} className={listOpened ? 'open' : ''}>
         <ListGroup.Item variant="secondary" key={'header'} className="flex gap-1">
           {header}
@@ -78,106 +189,6 @@ const RelatedIncidentsArea = ({ reports, incidents, loading }) => {
           )}
         </div>
       </ListContainer> */}
-        <div className="flex-1 self-stretch h-full">
-          <Badge>
-            <div className="flex flex-col">
-              <span className="text-sm">#160</span>Alexa Recommended Dangerous TikTok Challenge to
-              Ten-Year-Old Girl
-              <div className="flex mt-2">
-                <div className=" ">
-                  {/* <svg className="w-6 h-6 opacity-30" fill="red" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg>
-                  <svg className="w-6 h-6" fill="green" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> */}
-                  <label
-                    htmlFor="green-toggle"
-                    className="inline-flex relative items-center mr-5 cursor-pointer"
-                  >
-                    <input
-                      type="checkbox"
-                      value=""
-                      id="green-toggle"
-                      className="sr-only peer"
-                      checked
-                    />
-                    <div className="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-green-300 dark:peer-focus:ring-green-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600"></div>
-                    <span className="ml-1 text-xs font-medium text-gray-900 dark:text-gray-300">
-                      Related
-                    </span>
-                  </label>
-                </div>
-                <div className="flex justify-end flex-1">
-                  <Button size={'xs'}>
-                    <span className="text-gray-100">Use #160</span>
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </Badge>
-        </div>
-        <div className="flex-1 self-stretch">
-          <Badge>
-            <div className="flex flex-col">
-              <span className="text-sm">#287 </span>OpenAI&apos;s GPT-3 Reported as Unviable in
-              Medical Tasks by Healthcare Firm
-              <div className="flex mt-2">
-                <div className=" ">
-                  {/* <svg className="w-6 h-6 opacity-30" fill="red" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg>
-                  <svg className="w-6 h-6" fill="green" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> */}
-                  <label
-                    htmlFor="green-toggle"
-                    className="inline-flex relative items-center mr-5 cursor-pointer"
-                  >
-                    <input type="checkbox" value="" id="green-toggle" className="sr-only peer" />
-                    <div className="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-green-300 dark:peer-focus:ring-green-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600"></div>
-                    <span className="ml-1 text-xs font-medium text-gray-900 dark:text-gray-300">
-                      Not related
-                    </span>
-                  </label>
-                </div>
-                <div className="flex justify-end flex-1">
-                  <Button size={'xs'}>
-                    <span className="text-gray-100">Use #287</span>
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </Badge>
-        </div>
-
-        <div className="flex-1">
-          <Badge>
-            <div className="flex flex-col">
-              <span className="text-sm">#149</span> Zillow Shut Down Zillow Offers Division
-              Allegedly Due to Predictive Pricing Tool&apos;s Insufficient Accuracy
-              <div className="flex mt-2">
-                <div className=" ">
-                  {/* <svg className="w-6 h-6 opacity-30" fill="red" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg>
-                  <svg className="w-6 h-6" fill="green" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> */}
-                  <label
-                    htmlFor="green-toggle"
-                    className="inline-flex relative items-center mr-5 cursor-pointer"
-                  >
-                    <input
-                      type="checkbox"
-                      value=""
-                      id="green-toggle"
-                      className="sr-only peer"
-                      checked
-                    />
-                    <div className="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-focus:ring-4 peer-focus:ring-green-300 dark:peer-focus:ring-green-800 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-600"></div>
-                    <span className="ml-1 text-xs font-medium text-gray-900 dark:text-gray-300">
-                      Related
-                    </span>
-                  </label>
-                </div>
-                <div className="flex justify-end flex-1">
-                  <Button size={'xs'}>
-                    <span className="text-gray-100">Use #149</span>
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </Badge>
-        </div>
       </div>
     </div>
   );
