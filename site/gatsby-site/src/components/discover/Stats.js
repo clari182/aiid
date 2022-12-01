@@ -7,13 +7,11 @@ import DisplayOptions from './DisplayOptions';
 function Stats({ className, nbHits: count }) {
   return (
     <div className={'flex gap-3 items-center ' + className}>
-      <Trans count={count}>
-        <b>{{ count }}</b>{' '}
-        <span className="py-1 px-2 rounded border-1 border-gray-700" data-cy="display-options">
-          <DisplayOptions />
-        </span>{' '}
-        found
-      </Trans>
+      <b>{count}</b>{' '}
+      <span className="py-1 px-2 rounded border-1 border-gray-700" data-cy="display-options">
+        <DisplayOptions />
+      </span>{' '}
+      <Trans>found</Trans>
     </div>
   );
 }

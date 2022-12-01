@@ -171,5 +171,14 @@
   "Display Issues": "Incluir Problemas",
   "Only Issues": "Sólo Problemas",
   "Report {{report_number}}": "Problema {{report_number}}",
-  "Show Details on Issue #{{id}}": "Ver detalles del Problema #{{id}}"
+  "Show Details on Issue #{{id}}": "Ver detalles del Problema #{{id}}",
+  "Incident Reports": "Informes de Incidentes",
+  "Incident and Issue Reports": "Informes de Incidentes y Problemas",
+  "Incidents": "Incidentes",
+  "Issue Reports": "Informes de Problemas",
+  "{{ count}} Incident Reports found": "{{ count }} Informes de Incidentes encontrados",
+  "{{ count}} Incident and Issue Reports found": "{{ count }} Informes de Incidentes y Problemas encontrados",
+  "{{ count}} Incidents found": "{{ count }} Incidentes encontrados",
+  "{{ count}} Issue Reports found": "{{ count }} Informes de Problemas encontrados",
+  "found": "encontrados"
 }

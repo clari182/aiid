@@ -2,9 +2,12 @@ import React from 'react';
 import { Dropdown } from 'flowbite-react';
 import useSearch from './useSearch';
 import isEqual from 'lodash/isEqual';
+import { Trans, useTranslation } from 'react-i18next';
 
 const DisplayOptions = () => {
   const { setSearchState, searchState } = useSearch();
+
+  const { t } = useTranslation();
 
   const displayOptions = [
     { text: 'Incidents', state: { hideDuplicates: 'true', is_incident_report: ['true'] } },
@@ -36,10 +39,10 @@ const DisplayOptions = () => {
   });
 
   return (
-    <Dropdown label={selectedIndex > -1 && displayOptions[selectedIndex].text} size="sm" inline>
+    <Dropdown label={selectedIndex > -1 && t(displayOptions[selectedIndex].text)} size="sm" inline>
       {displayOptions.map(({ text }, index) => (
         <Dropdown.Item key={text} onClick={() => setDisplay(index)}>
-          {text}
+          <Trans>{text}</Trans>
         </Dropdown.Item>
       ))}
     </Dropdown>

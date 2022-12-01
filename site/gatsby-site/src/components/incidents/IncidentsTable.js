@@ -161,7 +161,7 @@ export default function IncidentsTable({ data }) {
               variant="link"
               onClick={() => setIncindentIdToEdit(values.incident_id)}
             >
-              Edit
+              <Trans>Edit</Trans>
             </Button>
           </div>
         ),

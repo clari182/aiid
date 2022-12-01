@@ -159,5 +159,14 @@
   "New Response": "Nouvelle Réponse",
   "Response": "Réponse",
   "Responded": "Répondu",
-  "{{authors}} post-incident response": "Réponse post-incident de {{authors}}"
+  "{{authors}} post-incident response": "Réponse post-incident de {{authors}}",
+  "Incident Reports": "Rapports d'Incidents",
+  "Incident and Issue Reports": "Rapports d'Incidents et de Problèmes",
+  "Incidents": "Incidents",
+  "Issue Reports": "Rapports de Problèmes",
+  "{{ count}} Incident Reports found": "{{ count }} Rapports d'Incidents trouvés",
+  "{{ count}} Incident and Issue Reports found": "{{ count }} Rapports d'Incidents et de Problèmes trouvés",
+  "{{ count}} Incidents found": "{{ count }} Incidents trouvés",
+  "{{ count}} Issue Reports found": "{{ count }} Rapports de Problèmes trouvés",
+  "found": "trouvés"
 }
