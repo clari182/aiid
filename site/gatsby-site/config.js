@@ -48,11 +48,11 @@ const config = {
          * (The higher the priority, the earlier an item will appear in the initial results)
          */
         { 23: 2 }, // Is Starbucks shortchanging its baristas?
+        { 1967: 1 }, // Tweet: @MarietjeSchaake
         { 1551: 1 }, // Hundreds of AI tools have been built to catch covid. None of them helped.
         { 835: 1 }, // LinkedIn’s search algorithm apparently favored men until this week
         { 1470: 1 }, // The Death and Life of an Admissions Algorithm
         { 1118: 1 }, // That Viral 'FaceApp' Is Making Everyone Look Whiter
-        { 1773: 1 }, // Chess robot goes rogue, breaks seven-year-old player's finger
         { 1509: 1 }, // Humanoid Robot Keeps Getting Fired From His Jobs
         { 1245: 1 }, // Robot Stabs A Man To Death At A Factory In Haryana's Manesar!
         { 679: 1 }, // A.I. Video Depicting Barack Obama Shows Dangers of Fake News
@@ -74,7 +74,7 @@ const config = {
         { 45: 1 }, // Google's Anti-Bullying AI Mistakes Civility for Decency
         { 620: 1 }, // Is AI Sexist?
         { 519: 1 }, // TV news report prompts viewers' Amazon Echo devices to order unwanted dollhouses
-        { 1967: 1 }, // Tweet: @MarietjeSchaake
+        { 1773: 1 }, // Chess robot goes rogue, breaks seven-year-old player's finger
       ],
     },
   },

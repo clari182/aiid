@@ -379,10 +379,11 @@ describe('The Discover app', () => {
     cy.visit(url);
 
     cy.get('[data-cy=report-number]').each((report_number, index) => {
-      console.log(report_number, index, Object.keys(config?.header?.search?.featured[index])[0]);
-      cy.wrap(report_number.eq(0))
-        .invoke('val')
-        .should('be.eq', Object.keys(config.header.search.featured[index])[0]);
+      if (config.header.search.featured[index]) {
+        cy.wrap(report_number.eq(0))
+          .invoke('val')
+          .should('be.eq', Object.keys(config.header.search.featured[index])[0]);
+      }
     });
   });
 });
