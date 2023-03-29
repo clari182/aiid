@@ -17,7 +17,6 @@ import { useLocalization } from 'plugins/gatsby-theme-i18n';
 import Container from 'elements/Container';
 import Row from 'elements/Row';
 import Col from 'elements/Col';
-import Layout from 'components/Layout';
 import { VIEW_TYPES } from 'utils/discover';
 import SORTING_LIST from 'components/discover/SORTING_LISTS';
 import { DEFAULT_SEARCH_KEYS_VALUES } from 'components/discover/DEFAULT_SEARCH_KEYS_VALUES';
@@ -267,7 +266,7 @@ function DiscoverApp(props) {
   useEffect(() => setMounted(true), []);
 
   return (
-    <Layout {...props} sidebarCollapsed={true} className="w-full">
+    <>
       <AiidHelmet path={props.location.pathname}>
         <title>Artificial Intelligence Incident Database</title>
       </AiidHelmet>
@@ -309,7 +308,7 @@ function DiscoverApp(props) {
           <Pagination />
         </InstantSearch>
       </SearchContext.Provider>
-    </Layout>
+    </>
   );
 }
 

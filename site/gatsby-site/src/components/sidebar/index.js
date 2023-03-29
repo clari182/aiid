@@ -26,6 +26,10 @@ const Sidebar = ({ defaultCollapsed = false, location = null }) => {
   const [redirectTo, setRedirectTo] = useState('/');
 
   useEffect(() => {
+    collapseMenu(defaultCollapsed);
+  }, [defaultCollapsed]);
+
+  useEffect(() => {
     if (!manual) {
       collapseMenu(defaultCollapsed);
     }
