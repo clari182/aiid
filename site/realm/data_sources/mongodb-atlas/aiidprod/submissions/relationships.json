@@ -16,5 +16,10 @@
         "source_key": "harmed_parties",
         "foreign_key": "entity_id",
         "is_list": true
+    },
+    "editor": {
+        "ref": "#/relationship/mongodb-atlas/customData/users",
+        "source_key": "editor",
+        "foreign_key": "userId"
     }
 }

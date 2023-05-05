@@ -51,6 +51,9 @@ export const FIND_SUBMISSIONS = gql`
         entity_id
         name
       }
+      editor {
+        userId
+      }
     }
   }
 `;
@@ -97,6 +100,9 @@ export const FIND_SUBMISSION = gql`
       }
       editor_similar_incidents
       editor_dissimilar_incidents
+      editor {
+        userId
+      }
     }
   }
 `;
@@ -143,6 +149,9 @@ export const UPDATE_SUBMISSION = gql`
       }
       editor_similar_incidents
       editor_dissimilar_incidents
+      editor {
+        userId
+      }
     }
   }
 `;

@@ -46,6 +46,12 @@ export default function SubmissionEditModal({ show, onHide, submissionId }) {
         createEntityMutation
       );
 
+      if (update.editor?.userId) {
+        update.editor = {
+          link: update.editor.userId,
+        };
+      }
+
       await updateSubmission({
         variables: {
           query: {

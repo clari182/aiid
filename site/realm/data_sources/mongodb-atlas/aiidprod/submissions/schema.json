@@ -138,6 +138,9 @@
         },
         "url": {
             "bsonType": "string"
+        },
+        "editor": {
+            "bsonType": "string"
         }
     },
     "required": [

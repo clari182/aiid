@@ -11,8 +11,13 @@ import Table, {
 } from 'components/ui/Table';
 import { faExpandAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useMutation } from '@apollo/client';
-import { DELETE_SUBMISSION, PROMOTE_SUBMISSION } from '../../graphql/submissions';
+import { useMutation, useQuery } from '@apollo/client';
+import {
+  DELETE_SUBMISSION,
+  FIND_SUBMISSIONS,
+  PROMOTE_SUBMISSION,
+  UPDATE_SUBMISSION,
+} from '../../graphql/submissions';
 import { incidentSchema, issueSchema, reportSchema } from './schemas';
 import useToastContext, { SEVERITY } from 'hooks/useToast';
 import { arrayToList } from 'utils/typography';
@@ -60,7 +65,7 @@ export default function SubmissionTable({ data }) {
 
   const [isEditing, setIsEditing] = useState(false);
 
-  const { isLoggedIn, isRole } = useUserContext();
+  const { isLoggedIn, isRole, user } = useUserContext();
 
   const isSubmitter = isRole('submitter');
 
@@ -69,6 +74,9 @@ export default function SubmissionTable({ data }) {
   const [promoteSubmissionToReport] = useMutation(PROMOTE_SUBMISSION, {
     fetchPolicy: 'network-only',
   });
+
+  useQuery(FIND_SUBMISSIONS);
+  const [updateSubmission] = useMutation(UPDATE_SUBMISSION, { refetchQueries: [FIND_SUBMISSIONS] });
 
   const promoteSubmission = ({ submission, variables }) =>
     promoteSubmissionToReport({
@@ -281,6 +289,31 @@ export default function SubmissionTable({ data }) {
     return progress;
   };
 
+  const claimSubmission = useCallback(async (submission) => {
+    try {
+      await updateSubmission({
+        variables: {
+          query: {
+            _id: submission._id,
+          },
+          set: {
+            editor: { link: user.id },
+          },
+        },
+      });
+      addToast({
+        message: `Submission claimed successfully.`,
+        severity: SEVERITY.success,
+      });
+    } catch (e) {
+      addToast({
+        message: `Error claiming submission ${submission._id}`,
+        severity: SEVERITY.danger,
+        error: e,
+      });
+    }
+  }, []);
+
   function StringCell({ cell }) {
     return (
       <div className="max-w-[450px] flex flex-col items-start" data-cy={`${cell?.column?.id}`}>
@@ -482,6 +515,29 @@ export default function SubmissionTable({ data }) {
           return (
             <div data-cy="incident_ids">
               {cell.value?.join(', ').replace(/, ((?:.(?!, ))+)$/, ' and $1')}
+            </div>
+          );
+        },
+      },
+      {
+        title: t('Editor'),
+        id: 'editor',
+        accessor: (data) => data.editor?.userId,
+        Cell: ({ cell }) => {
+          return (
+            <div data-cy="editor">
+              {cell.value && cell.value !== '' ? (
+                <>{cell.value}</>
+              ) : (
+                <Button
+                  color="gray"
+                  disabled={!isSubmitter || deleting || promoting || !user}
+                  onClick={() => claimSubmission(cell.row.original)}
+                  className="text-xs md:text-base whitespace-nowrap"
+                >
+                  <Trans>Claim</Trans>
+                </Button>
+              )}
             </div>
           );
         },
