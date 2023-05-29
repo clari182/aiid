@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import Markdown from 'react-markdown';
 import TaxonomyForm from './TaxonomyForm';
 import { Trans } from 'react-i18next';
-import Card from 'elements/Card';
+// import Card from 'elements/Card';
 import Button from 'elements/Button';
-import { Tooltip } from 'flowbite-react';
+import { Card, Tooltip } from 'flowbite-react';
+import { CARD_THEME } from 'utils/cite';
 
 const Taxonomy = ({
   taxonomy,
@@ -28,8 +29,14 @@ const Taxonomy = ({
   const heavyClassifications = taxonomy.classificationsArray.filter((field) => field.weight >= 50);
 
   return (
-    <Card id={id} key={taxonomy.namespace} className="mt-6" data-cy={taxonomy.namespace}>
-      <div className="tw-taxa-card-header tw-card-header">
+    <Card
+      theme={CARD_THEME}
+      id={id}
+      key={taxonomy.namespace}
+      className="mt-6"
+      data-cy={taxonomy.namespace}
+    >
+      <div className="flex flex-row justify-start items-center border-t-0 border-r-0 border-l-0 border-b border-b-border-gray px-4 py-2 bg-light-gray border-1 mb-0">
         <h4 className="pr-0.8">
           <Trans namespace={taxonomy.namespace}>
             {{ namespace: taxonomy.namespace }} Taxonomy Classifications
@@ -54,12 +61,12 @@ const Taxonomy = ({
           <>
             {showBanner && (
               <div style={{ padding: '0.5em' }}>
-                <Card bg="secondary" style={{ width: '100%' }} text="light" className="mb-2">
-                  <Card.Body>
-                    <Card.Text>
+                <Card style={{ width: '100%' }} className="mb-2">
+                  <div className="flex flex-row flex-wrap gap-2 p-4">
+                    <div>
                       <Trans>Classifications will update in production within 24 hours.</Trans>
-                    </Card.Text>
-                  </Card.Body>
+                    </div>
+                  </div>
                 </Card>
               </div>
             )}
@@ -115,12 +122,12 @@ const Taxonomy = ({
               </>
             ) : (
               <div style={{ padding: '0.5em' }}>
-                <Card bg="secondary" style={{ width: '100%' }} text="light" className="mb-2">
-                  <Card.Body>
-                    <Card.Text className="last:mb-0">
+                <Card style={{ width: '100%' }} className="mb-2">
+                  <div className="flex flex-row flex-wrap gap-2 p-4">
+                    <div className="last:mb-0">
                       <Trans>No classifications for this taxonomy.</Trans>
-                    </Card.Text>
-                  </Card.Body>
+                    </div>
+                  </div>
                 </Card>
               </div>
             )}

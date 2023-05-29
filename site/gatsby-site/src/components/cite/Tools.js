@@ -2,10 +2,11 @@ import { faEdit, faPlus, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useUserContext } from 'contexts/userContext';
 import { format } from 'date-fns';
-import Card from 'elements/Card';
-import { Button, ToggleSwitch } from 'flowbite-react';
+// import Card from 'elements/Card';
+import { Button, Card, ToggleSwitch } from 'flowbite-react';
 import React, { useEffect, useState } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
+import { CARD_THEME } from 'utils/cite';
 import { RESPONSE_TAG } from 'utils/entities';
 import CitationFormat from './CitationFormat';
 import NotifyButton from './NotifyButton';
@@ -30,13 +31,13 @@ function Tools({
   }, [user]);
 
   return (
-    <Card>
-      <Card.Header>
+    <Card theme={CARD_THEME}>
+      <div className="bg-light-gray px-4 py-2 border-b border-border-gray">
         <h4 className="m-0">
           <Trans>Tools</Trans>
         </h4>
-      </Card.Header>
-      <Card.Body className="flex-row flex-wrap gap-2">
+      </div>
+      <div className="flex flex-row flex-wrap gap-2 p-4">
         <NotifyButton
           subscribing={subscribing}
           onClick={subscribeToNewReports}
@@ -114,7 +115,7 @@ function Tools({
             />
           </div>
         )}
-      </Card.Body>
+      </div>
     </Card>
   );
 }

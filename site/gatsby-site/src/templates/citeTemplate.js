@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState, useRef } from 'react';
-import { Badge } from 'flowbite-react';
+import { Badge, Card } from 'flowbite-react';
 import { Trans, useTranslation } from 'react-i18next';
 import { useLocalization } from 'plugins/gatsby-theme-i18n';
 import { useMutation, useQuery } from '@apollo/client';
@@ -10,7 +10,7 @@ import ReportCard from '../components/reports/ReportCard';
 import Taxonomy from '../components/taxa/Taxonomy';
 import { useUserContext } from '../contexts/userContext';
 import SimilarIncidents from '../components/cite/SimilarIncidents';
-import Card from '../elements/Card';
+// import Card from '../elements/Card';
 import Container from '../elements/Container';
 import Row from '../elements/Row';
 import Col from '../elements/Col';
@@ -20,7 +20,7 @@ import useLocalizePath from '../components/i18n/useLocalizePath';
 import { FIND_USER_SUBSCRIPTIONS, UPSERT_SUBSCRIPTION } from '../graphql/subscriptions';
 import useToastContext, { SEVERITY } from '../hooks/useToast';
 import Link from 'components/ui/Link';
-import { getTaxonomies } from 'utils/cite';
+import { CARD_THEME, getTaxonomies } from 'utils/cite';
 import { RESPONSE_TAG } from 'utils/entities';
 import AllegedEntities from 'components/entities/AllegedEntities';
 import { SUBSCRIPTION_TYPE } from 'utils/subscriptions';
@@ -246,21 +246,21 @@ function CiteTemplate({
             </Col>
           </Row>
 
-          <Container>
+          <Container className="mt-6">
             <Row>
               <Col>
-                <Card className="border-1.5 border-border-light-gray rounded-5px shadow-card mt-6">
-                  <Card.Header className="items-center justify-between">
+                <Card theme={CARD_THEME}>
+                  <div className="flex justify-between bg-light-gray px-4 py-2 border-b border-border-gray">
                     <h4 className="m-0">
                       <Trans ns="entities">Entities</Trans>
                     </h4>
                     <Link to="/entities">
                       <Trans ns="entities">View all entities</Trans>
                     </Link>
-                  </Card.Header>
-                  <Card.Body className="block" data-cy="alleged-entities">
+                  </div>
+                  <div className="flex flex-row flex-wrap gap-2 p-4" data-cy="alleged-entities">
                     <AllegedEntities entities={entities ?? []} />
-                  </Card.Body>
+                  </div>
                 </Card>
               </Col>
             </Row>
@@ -314,15 +314,15 @@ function CiteTemplate({
                     <Trans>Incident Reports</Trans>
                   </h1>
                 </div>
-                <Card className="shadow-card">
-                  <Card.Header className="items-center justify-between">
+                <Card theme={CARD_THEME}>
+                  <div className="bg-light-gray px-4 py-2 border-b border-border-gray">
                     <h4>
                       <Trans>Reports Timeline</Trans>
                     </h4>
-                  </Card.Header>
-                  <Card.Body>
+                  </div>
+                  <div className="flex flex-row flex-wrap gap-2 p-4">
                     <Timeline data={timeline} />
-                  </Card.Body>
+                  </div>
                 </Card>
               </Col>
             </Row>

@@ -124,3 +124,9 @@ export const sortIncidentsByDatePublished = (incidentReports) => {
     }
   });
 };
+
+export const CARD_THEME = {
+  root: {
+    children: 'flex h-full flex-col justify-center p-0',
+  },
+};
