@@ -87,7 +87,7 @@ const Image = ({
         alt={alt}
         className={`${className} ${
           !publicID || publicID == '' || loadFailed ? 'hidden' : ''
-        } h-full w-full object-cover`}
+        } h-full w-full`}
         cldImg={image}
         plugins={plugins}
         style={style}

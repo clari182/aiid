@@ -27,7 +27,7 @@ const LatestIncidentReport = ({ report }) => {
         <LocalizedLink to={reportLink} className="text-primary-blue max-w-full h-full">
           <Image
             className={
-              'img-fluid rounded-start h-full w-full max-w-full rounded-t-lg md:rounded-l-lg md:rounded-r-none border-r object-cover'
+              'img-fluid rounded-start h-full w-full max-w-full rounded-t-lg md:rounded-l-lg md:rounded-r-none border-r object-contain'
             }
             publicID={cloudinary_id ? cloudinary_id : `legacy/${md5(image_url)}`}
             alt={title}

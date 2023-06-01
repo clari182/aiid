@@ -39,7 +39,7 @@ export default function Details({ item, toggleFilterByIncidentId, viewType }) {
       <input type="hidden" data-cy="incident-date" value={item.epoch_incident_date} />
       <a href={detailsPath}>
         <Image
-          className={`card-img-top rounded-t-lg h-[240px] object-cover w-full`}
+          className={`card-img-top rounded-t-lg h-[240px] object-contain w-full`}
           publicID={item.cloudinary_id ? item.cloudinary_id : `legacy/${md5(item.image_url)}`}
           alt={item.title}
           transformation={fill().height(480)}
