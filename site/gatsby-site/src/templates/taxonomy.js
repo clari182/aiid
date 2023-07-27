@@ -56,6 +56,7 @@ const Taxonomy = (props) => {
             target="_blank"
             rel="noreferrer"
           >
+            {' '}
             here
           </a>
           . However, brief descriptions of the field are provided above each chart.
@@ -110,7 +111,7 @@ const Taxonomy = (props) => {
           CSET has developed specific definitions for the underlined phrases that may differ from
           other organizations&apos; definitions. As a result, other organizations may make different
           assessments on whether any particular AI incident is (or is not) AI harm. Details about
-          CSET&apos;s definitions for AI harm can be found
+          CSET&apos;s definitions for AI harm can be found{' '}
           <a
             href="https://github.com/georgetown-cset/CSET-AIID-harm-taxonomy"
             target="_blank"
@@ -307,7 +308,7 @@ const Taxonomy = (props) => {
               Some AI systems undergo testing or demonstration in an operational environment.
               Testing in operational environments still occurs before the system is deployed by
               end-users. However, relative to controlled environments, operational environments try
-              to closely represent real-world conditions that affect use of the AI system.{' '}
+              to closely represent real-world conditions that affect use of the AI system.
             </Trans>
           ),
         },
