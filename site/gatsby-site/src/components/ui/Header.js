@@ -3,10 +3,10 @@ import { StaticQuery, graphql } from 'gatsby';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faRssSquare } from '@fortawesome/free-solid-svg-icons';
 import {
-  faTwitterSquare,
   faGithubSquare,
   faFacebookSquare,
   faLinkedin,
+  faSquareXTwitter,
 } from '@fortawesome/free-brands-svg-icons';
 import LoginSignup from 'components/loginSignup';
 import logoImg from '../images/logo.svg';
@@ -55,7 +55,7 @@ const Header = ({ location = null }) => {
               <a href={'https://twitter.com/IncidentsDB'} target="_blank" rel="noreferrer">
                 <FontAwesomeIcon
                   titleId="twitter"
-                  icon={faTwitterSquare}
+                  icon={faSquareXTwitter}
                   color={'white'}
                   className="pointer fa fa-twitter-square fa-lg"
                   title="Open Twitter"
