@@ -2,7 +2,7 @@ import { Badge, Button, Spinner } from 'flowbite-react';
 import { Formik, Form, useFormikContext } from 'formik';
 import React, { useEffect, useRef, useState } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
-import TextInputGroup from '../TextInputGroup';
+import TextInputGroup, { DateInputGroup } from '../TextInputGroup';
 import * as yup from 'yup';
 import Label from '../Label';
 import FlowbiteSearchInput from '../FlowbiteSearchInput';
@@ -13,7 +13,6 @@ import TagsInputGroup from '../TagsInputGroup';
 import { Editor } from '@bytemd/react';
 import SemanticallyRelatedIncidents from 'components/SemanticallyRelatedIncidents';
 import isEmpty from 'lodash/isEmpty';
-import { format } from 'date-fns';
 import FieldContainer from './FieldContainer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -150,7 +149,7 @@ const FormDetails = ({
 
   useEffect(() => {
     if (!values.date_downloaded) {
-      setFieldValue('date_downloaded', new Date().toISOString().substr(0, 10));
+      setFieldValue('date_downloaded', new Date());
     }
   }, [values.date_downloaded]);
 
@@ -282,7 +281,7 @@ const FormDetails = ({
         </FieldContainer>
 
         <FieldContainer>
-          <TextInputGroup
+          {/* <TextInputGroup
             name="date_published"
             label={t('Date Published')}
             type="date"
@@ -295,6 +294,22 @@ const FormDetails = ({
             schema={schema}
             disabled={parsingNews}
             icon={faCalendar}
+          /> */}
+
+          <DateInputGroup
+            name="date_published"
+            label={t('Date Published')}
+            type="date"
+            placeholder={t('YYYY-MM-DD')}
+            values={values}
+            errors={errors}
+            touched={touched}
+            handleChange={handleChange}
+            handleBlur={handleBlur}
+            schema={schema}
+            disabled={parsingNews}
+            icon={faDownload}
+            value={values.date_published || new Date()}
           />
           <RelatedIncidents
             incident={values}
@@ -304,7 +319,7 @@ const FormDetails = ({
         </FieldContainer>
 
         <FieldContainer>
-          <TextInputGroup
+          {/* <TextInputGroup
             name="date_downloaded"
             label={t('Date Downloaded')}
             type="date"
@@ -318,7 +333,23 @@ const FormDetails = ({
             disabled={parsingNews}
             defaultValue={format(new Date(), 'yyyy-MM-dd')}
             icon={faDownload}
-          />
+          /> */}
+
+          {/* <DateInputGroup
+            name="date_downloaded"
+            label={t('Date Downloaded')}
+            type="date"
+            placeholder={t('YYYY-MM-DD')}
+            values={values}
+            errors={errors}
+            touched={touched}
+            handleChange={handleChange}
+            handleBlur={handleBlur}
+            schema={schema}
+            disabled={parsingNews}
+            icon={faDownload}
+            value={values.date_downloaded || new Date()}
+          /> */}
         </FieldContainer>
 
         <FieldContainer>
