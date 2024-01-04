@@ -11,7 +11,7 @@ import {
 import Link from 'components/ui/Link';
 import { useUserContext } from 'contexts/userContext';
 import useToastContext, { SEVERITY } from '../../hooks/useToast';
-import { format, parse, getUnixTime } from 'date-fns';
+import { parse, getUnixTime } from 'date-fns';
 import { useMutation, useQuery } from '@apollo/client';
 import { FIND_SUBMISSIONS, INSERT_SUBMISSION } from '../../graphql/submissions';
 import { UPSERT_ENTITY } from '../../graphql/entities';
@@ -172,7 +172,7 @@ const SubmitForm = () => {
     try {
       const now = new Date();
 
-      const date_submitted = format(now, 'yyyy-MM-dd');
+      const date_submitted = now;
 
       const url = new URL(values?.url);
 
@@ -189,6 +189,8 @@ const SubmitForm = () => {
         plain_text: await stripMarkdown(values.text),
         embedding: values.embedding || undefined,
         incident_editors: { link: values.incident_editors },
+        date_downloaded: values.date_downloaded ? new Date(values.date_downloaded) : undefined,
+        date_published: values.date_published ? new Date(values.date_published) : undefined,
       };
 
       submission.deployers = await processEntities(

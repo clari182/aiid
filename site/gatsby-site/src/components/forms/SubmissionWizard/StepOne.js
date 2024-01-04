@@ -7,7 +7,7 @@ import * as yup from 'yup';
 import Label from '../Label';
 import FlowbiteSearchInput from '../FlowbiteSearchInput';
 import RelatedIncidents from 'components/RelatedIncidents';
-import { dateRegExp, isPastDate } from 'utils/date';
+import { dateTimeRegExp, isPastDate } from 'utils/date';
 import StepContainer from './StepContainer';
 import TagsInputGroup from '../TagsInputGroup';
 import { Editor } from '@bytemd/react';
@@ -47,13 +47,13 @@ const StepOne = (props) => {
       .nullable(),
     date_published: yup
       .string()
-      .matches(dateRegExp, '*Date is not valid, must be `YYYY-MM-DD`')
+      .matches(dateTimeRegExp, '*Date is not valid, must be `YYYY-MM-DD`')
       .test(isPastDate)
       .required('*Date published is required')
       .nullable(),
     date_downloaded: yup
       .string()
-      .matches(dateRegExp, '*Date is not valid, must be `YYYY-MM-DD`')
+      .matches(dateTimeRegExp, '*Date is not valid, must be `YYYY-MM-DD`')
       .test(isPastDate)
       .required('*Date downloaded required')
       .nullable(),
@@ -149,10 +149,22 @@ const FormDetails = ({
   }, [values]);
 
   useEffect(() => {
-    if (!values.date_downloaded) {
-      setFieldValue('date_downloaded', new Date().toISOString().substr(0, 10));
+    if (values?.date_published) {
+      const publishedDate = new Date(values.date_published);
+
+      const formattedDate = publishedDate.toISOString().split('T')[0];
+
+      setFieldValue('date_published', formattedDate);
     }
-  }, [values.date_downloaded]);
+
+    if (values?.date_downloaded) {
+      const downloadedDate = new Date(values.date_downloaded);
+
+      const formattedDate = downloadedDate.toISOString().split('T')[0];
+
+      setFieldValue('date_downloaded', formattedDate);
+    }
+  }, [values?.date_published, values?.date_downloaded]);
 
   useEffect(() => {
     if (submissionFailed || submissionComplete || submissionReset.reset) {
