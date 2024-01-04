@@ -191,6 +191,7 @@ const SubmitForm = () => {
         incident_editors: { link: values.incident_editors },
         date_downloaded: values.date_downloaded ? new Date(values.date_downloaded) : undefined,
         date_published: values.date_published ? new Date(values.date_published) : undefined,
+        incident_date: values.incident_date ? new Date(values.incident_date) : undefined,
       };
 
       submission.deployers = await processEntities(

@@ -81,7 +81,7 @@
             "bsonType": "string"
         },
         "incident_date": {
-            "bsonType": "string"
+            "bsonType": "date"
         },
         "incident_editors": {
             "bsonType": "array",
