@@ -65,6 +65,32 @@ const SubmissionForm = ({ onChange = null }) => {
     }
   }, []);
 
+  useEffect(() => {
+    if (values?.date_published) {
+      const publishedDate = new Date(values.date_published);
+
+      const formattedDate = publishedDate.toISOString().split('T')[0];
+
+      setFieldValue('date_published', formattedDate);
+    }
+
+    if (values?.date_downloaded) {
+      const downloadedDate = new Date(values.date_downloaded);
+
+      const formattedDate = downloadedDate.toISOString().split('T')[0];
+
+      setFieldValue('date_downloaded', formattedDate);
+    }
+
+    if (values?.incident_date) {
+      const incidentDate = new Date(values.incident_date);
+
+      const formattedDate = incidentDate.toISOString().split('T')[0];
+
+      setFieldValue('incident_date', formattedDate);
+    }
+  }, [values?.date_published, values?.date_downloaded, values?.incident_date]);
+
   const parseNewsUrl = useCallback(
     async (newsUrl) => {
       setParsingNews(true);

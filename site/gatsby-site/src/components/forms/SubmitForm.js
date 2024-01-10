@@ -122,6 +122,11 @@ const SubmitForm = () => {
         }
       }
     }
+
+    if (!submission.date_downloaded || submission.date_downloaded === '') {
+      submission.date_downloaded = new Date();
+    }
+
     setSubmission(submission);
   }, [loading, user?.profile]);
 

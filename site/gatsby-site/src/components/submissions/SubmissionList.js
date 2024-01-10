@@ -20,6 +20,7 @@ import { STATUS } from 'utils/submissions';
 import { useMutation } from '@apollo/client';
 import { UPDATE_SUBMISSION } from '../../graphql/submissions';
 import useToastContext, { SEVERITY } from 'hooks/useToast';
+import { format } from 'date-fns';
 
 const SubmissionList = ({ data }) => {
   const { t } = useTranslation();
@@ -247,15 +248,23 @@ const SubmissionList = ({ data }) => {
         Cell: ({ row }) => {
           const values = row.values;
 
-          const dateSubmitted = row.original.date_submitted;
+          const incidentDate = values.incident_date
+            ? format(new Date(values.incident_date), 'yyyy-MM-dd')
+            : null;
 
-          const datePublished = row.original.date_published;
+          const dateSubmitted = row.original.date_submitted
+            ? format(new Date(row.original.date_submitted), 'yyyy-MM-dd')
+            : null;
+
+          const datePublished = row.original.date_published
+            ? format(new Date(row.original.date_published), 'yyyy-MM-dd')
+            : null;
 
           return (
             <div className="flex justify-center flex-wrap gap-1">
-              {values.incident_date && (
+              {incidentDate && (
                 <Badge key={`incident_date`} className="mr-2 w-fit">
-                  {`Inc: ${values.incident_date}`}
+                  {`Inc: ${incidentDate}`}
                 </Badge>
               )}
               {dateSubmitted && (
