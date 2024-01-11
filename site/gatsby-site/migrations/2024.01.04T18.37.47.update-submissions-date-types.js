@@ -17,13 +17,13 @@ exports.up = async ({ context: { client } }) => {
   await Promise.all(
     docs.map((doc) => {
       // Convert epoch timestamps (in seconds) to milliseconds, and then to MongoDB's Date type
-      const date_downloaded = new Date(doc.epoch_date_downloaded * 1000);
+      const date_downloaded = new Date(doc.date_downloaded);
 
       const date_modified = new Date(doc.epoch_date_modified * 1000);
 
-      const date_published = new Date(doc.epoch_date_published * 1000);
+      const date_published = new Date(doc.date_published);
 
-      const date_submitted = new Date(doc.epoch_date_submitted * 1000);
+      const date_submitted = new Date(doc.date_submitted);
 
       const incident_date = doc.incident_date ? new Date(doc.incident_date) : null;
 

@@ -6,7 +6,7 @@ import { Formik } from 'formik';
 import useToastContext, { SEVERITY } from 'hooks/useToast';
 import { useLazyQuery, useMutation, useQuery } from '@apollo/client';
 import { FIND_ENTITIES, UPSERT_ENTITY } from '../../graphql/entities';
-import { format, getUnixTime } from 'date-fns';
+import { getUnixTime } from 'date-fns';
 import { FIND_SUBMISSION, UPDATE_SUBMISSION } from '../../graphql/submissions';
 import { schema } from './schemas';
 import { stripMarkdown } from 'utils/typography';
@@ -93,7 +93,11 @@ const SubmissionEdit = ({ id }) => {
             : values.submitters
           : ['Anonymous'],
         plain_text: await stripMarkdown(update.text),
-        date_modified: format(now, 'yyyy-MM-dd'),
+        date_modified: now,
+        date_submitted: update.date_submitted ? new Date(update.date_submitted) : null,
+        date_published: update.date_published ? new Date(update.date_published) : null,
+        incident_date: update.incident_date ? new Date(update.incident_date) : null,
+        date_downloaded: update.date_downloaded ? new Date(update.date_downloaded) : now,
         epoch_date_modified: getUnixTime(now),
       };
 
