@@ -200,7 +200,7 @@ describe('Functions', () => {
         'Alleged deployer of AI system': ['Youtube'],
         'Alleged developer of AI system': ['AI Dev'],
         'Alleged harmed or nearly harmed parties': ['Adults'],
-        date: '2015-09-01',
+        date: new Date('2015-09-01'),
         epoch_date_modified: 1686182943,
         description:
           'By NEIL BEDI and KATHLEEN McGRORY\nTimes staff writers\nNov. 19, 2020\nThe Pasco Sheriff’s Office keeps a secret list of kids it thinks could “fall into a life of crime” based on factors like wheth',
@@ -691,7 +691,7 @@ describe('Functions', () => {
         'Alleged deployer of AI system': ['Youtube'],
         'Alleged developer of AI system': ['AI Dev'],
         'Alleged harmed or nearly harmed parties': ['Adults'],
-        date: '2015-09-01',
+        date: new Date('2015-09-01'),
         epoch_date_modified: 1686182943,
         description:
           'By NEIL BEDI and KATHLEEN McGRORY\nTimes staff writers\nNov. 19, 2020\nThe Pasco Sheriff’s Office keeps a secret list of kids it thinks could “fall into a life of crime” based on factors like wheth',
@@ -820,7 +820,7 @@ describe('Functions', () => {
         'Alleged deployer of AI system': ['Youtube'],
         'Alleged developer of AI system': ['AI Dev'],
         'Alleged harmed or nearly harmed parties': ['Adults'],
-        date: '2015-09-01',
+        date: new Date('2015-09-01'),
         epoch_date_modified: 1686182943,
         description:
           'By NEIL BEDI and KATHLEEN McGRORY\nTimes staff writers\nNov. 19, 2020\nThe Pasco Sheriff’s Office keeps a secret list of kids it thinks could “fall into a life of crime” based on factors like wheth',
