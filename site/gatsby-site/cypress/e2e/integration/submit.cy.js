@@ -30,6 +30,8 @@ describe('The Submit form', () => {
 
     cy.visit(url);
 
+    cy.waitForStableDOM();
+
     cy.get('input[name="url"]').type(
       `https://www.arstechnica.com/gadgets/2017/11/youtube-to-crack-down-on-inappropriate-content-masked-as-kids-cartoons/`
     );
@@ -69,8 +71,8 @@ describe('The Submit form', () => {
         title: 'YouTube to crack down on inappropriate content masked as kids’ cartoons',
         submitters: ['Something'],
         authors: ['Valentina Palladino'],
-        incident_date: '2020-01-01',
-        date_published: '2017-11-10',
+        incident_date: new Date('2020-01-01').toISOString(),
+        date_published: new Date('2017-11-10').toISOString(),
         image_url:
           'https://cdn.arstechnica.net/wp-content/uploads/2017/11/Screen-Shot-2017-11-10-at-9.25.47-AM-760x380.png',
         tags: ['New Tag'],
@@ -109,6 +111,8 @@ describe('The Submit form', () => {
 
     cy.visit(url);
 
+    cy.waitForStableDOM();
+
     cy.get('input[name="url"]').type(
       `https://www.arstechnica.com/gadgets/2017/11/youtube-to-crack-down-on-inappropriate-content-masked-as-kids-cartoons/`
     );
@@ -140,7 +144,7 @@ describe('The Submit form', () => {
       expect(xhr.request.body.variables.submission).to.deep.nested.include({
         title: 'YouTube to crack down on inappropriate content masked as kids’ cartoons',
         authors: ['Valentina Palladino'],
-        date_published: '2017-11-10',
+        date_published: new Date('2017-11-10').toISOString(),
         image_url:
           'https://cdn.arstechnica.net/wp-content/uploads/2017/11/Screen-Shot-2017-11-10-at-9.25.47-AM-760x380.png',
         incident_ids: [],
@@ -188,6 +192,8 @@ describe('The Submit form', () => {
 
       cy.visit(url);
 
+      cy.waitForStableDOM();
+
       cy.get('input[name="url"]').type(
         `https://www.arstechnica.com/gadgets/2017/11/youtube-to-crack-down-on-inappropriate-content-masked-as-kids-cartoons/`
       );
@@ -231,10 +237,10 @@ describe('The Submit form', () => {
           title: 'YouTube to crack down on inappropriate content masked as kids’ cartoons',
           submitters: ['Test User'],
           authors: ['Valentina Palladino'],
-          incident_date: '2020-01-01',
+          incident_date: new Date('2020-01-01').toISOString(),
           incident_editors: { link: ['63320ce63ec803072c9f529c'] },
           incident_title: 'Elsagate',
-          date_published: '2017-11-10',
+          date_published: new Date('2017-11-10').toISOString(),
           image_url:
             'https://cdn.arstechnica.net/wp-content/uploads/2017/11/Screen-Shot-2017-11-10-at-9.25.47-AM-760x380.png',
           tags: ['New Tag'],
@@ -311,8 +317,8 @@ describe('The Submit form', () => {
                 title: 'YouTube to crack down on inappropriate content masked as kids’ cartoons',
                 submitters: ['Something'],
                 authors: ['Valentina Palladino'],
-                incident_date: '2021-09-21',
-                date_published: '2017-11-10',
+                incident_date: new Date('2021-09-21').toISOString(),
+                date_published: new Date('2017-11-10').toISOString(),
                 image_url:
                   'https://cdn.arstechnica.net/wp-content/uploads/2017/11/Screen-Shot-2017-11-10-at-9.25.47-AM-760x380.png',
                 tags: ['New Tag'],
@@ -333,6 +339,8 @@ describe('The Submit form', () => {
       );
 
       cy.visit(url);
+
+      cy.waitForStableDOM();
 
       cy.get('input[name="url"]').type(
         `https://www.arstechnica.com/gadgets/2017/11/youtube-to-crack-down-on-inappropriate-content-masked-as-kids-cartoons/`
@@ -391,7 +399,7 @@ describe('The Submit form', () => {
           title: 'YouTube to crack down on inappropriate content masked as kids’ cartoons',
           submitters: ['Anonymous'],
           authors: ['Valentina Palladino'],
-          date_published: '2017-11-10',
+          date_published: new Date('2017-11-10').toISOString(),
           image_url:
             'https://cdn.arstechnica.net/wp-content/uploads/2017/11/Screen-Shot-2017-11-10-at-9.25.47-AM-760x380.png',
           cloudinary_id:
@@ -423,6 +431,8 @@ describe('The Submit form', () => {
 
   it('Should show a toast on error when failing to reach parsing endpoint', () => {
     cy.visit(url);
+
+    cy.waitForStableDOM();
 
     cy.intercept('GET', parserURL, { ...parseNews, forceNetworkError: true }).as('parseNews');
 
@@ -461,9 +471,9 @@ describe('The Submit form', () => {
       title: 'test title',
       authors: 'test author',
       submitters: 'test submitter',
-      date_published: '2021-01-02',
-      date_downloaded: '2021-01-03',
-      incident_date: '2022-01-01',
+      date_published: new Date('2021-01-02').toISOString(),
+      date_downloaded: new Date('2021-01-03').toDateString(),
+      incident_date: new Date('2022-01-01').toISOString(),
       incident_ids: [1],
       image_url: 'https://incidentdatabase.ai/image.jpg',
       text: '## Sit quo accusantium \n\n quia **assumenda**. Quod delectus similique labore optio quaease',
@@ -502,6 +512,8 @@ describe('The Submit form', () => {
 
     cy.visit(url + `?${params.toString()}`);
 
+    cy.waitForStableDOM();
+
     cy.wait('@FindIncidentsTitles');
 
     cy.get('.form-has-errors').should('not.exist');
@@ -530,6 +542,9 @@ describe('The Submit form', () => {
         source_domain: `incidentdatabase.ai`,
         cloudinary_id: `reports/incidentdatabase.ai/image.jpg`,
         editor_notes: 'Here are some notes',
+        date_published: new Date('2021-01-02').toISOString(),
+        date_downloaded: new Date('2021-01-03').toISOString(),
+        incident_date: new Date('2022-01-01').toISOString(),
       });
 
       expect(xhr.request.body.variables.submission.user).to.be.undefined;
@@ -561,8 +576,8 @@ describe('The Submit form', () => {
       cy.intercept('GET', parserURL, {
         title: 'test title',
         authors: 'test author',
-        date_published: '2021-01-02',
-        date_downloaded: '2021-01-03',
+        date_published: new Date('2021-01-02').toISOString(),
+        date_downloaded: new Date('2021-01-03').toISOString(),
         image_url: 'https://incidentdatabase.ai/image.jpg',
         text: '## Sit quo accusantium \n\n quia **assumenda**. Quod delectus similique labore optio quaease',
       }).as('parseNews');
@@ -598,6 +613,8 @@ describe('The Submit form', () => {
 
       cy.visit(url + `?${params.toString()}`);
 
+      cy.waitForStableDOM();
+
       cy.wait('@FindIncidentsTitles');
 
       cy.get('.form-has-errors').should('not.exist');
@@ -626,6 +643,9 @@ describe('The Submit form', () => {
           source_domain: `incidentdatabase.ai`,
           cloudinary_id: `reports/incidentdatabase.ai/image.jpg`,
           editor_notes: 'Here are some notes',
+          incident_date: new Date('2022-01-01').toISOString(),
+          date_published: new Date('2021-01-02').toISOString(),
+          date_downloaded: new Date('2021-01-03').toISOString(),
         });
 
         expect(xhr.request.body.variables.submission.user.link).to.not.be.undefined;
@@ -828,11 +848,13 @@ describe('The Submit form', () => {
     const values = {
       url: 'https://www.cnn.com/2021/11/02/homes/zillow-exit-ibuying-home-business/index.html',
       authors: 'test author',
-      date_published: '2021-01-02',
+      date_published: new Date('2021-01-02').toISOString(),
       incident_ids: '1',
     };
 
     cy.visit(url);
+
+    cy.waitForStableDOM();
 
     for (const key in values) {
       if (key == 'incident_ids') {
@@ -864,6 +886,8 @@ describe('The Submit form', () => {
     () => {
       cy.visit(url);
 
+      cy.waitForStableDOM();
+
       cy.intercept('GET', parserURL, parseNews).as('parseNews');
 
       cy.setEditorText(
@@ -882,6 +906,8 @@ describe('The Submit form', () => {
   // cy.setEditorText doesn't seem to trigger a render of the relateBbyText component
   it('Should *not* show semantically related reports when the text is under 256 non-space characters', () => {
     cy.visit(url);
+
+    cy.waitForStableDOM();
 
     cy.intercept('GET', parserURL, parseNews).as('parseNews');
 
@@ -909,6 +935,8 @@ describe('The Submit form', () => {
     cy.intercept('GET', parserURL, values).as('parseNews');
 
     cy.visit(url + `?${params.toString()}`);
+
+    cy.waitForStableDOM();
 
     cy.wait('@parseNews');
 
@@ -943,6 +971,8 @@ describe('The Submit form', () => {
 
     cy.visit(url + `?${params.toString()}`);
 
+    cy.waitForStableDOM();
+
     cy.wait('@parseNews');
 
     const suffix = 'github.com/favicon.ico';
@@ -971,6 +1001,8 @@ describe('The Submit form', () => {
 
   it('Should show the editor notes field', () => {
     cy.visit(url);
+
+    cy.waitForStableDOM();
 
     cy.intercept('GET', parserURL, parseNews).as('parseNews');
 
@@ -1021,6 +1053,8 @@ describe('The Submit form', () => {
   it('Should show a popover', () => {
     cy.visit(url);
 
+    cy.waitForStableDOM();
+
     cy.intercept('GET', parserURL, parseNews).as('parseNews');
 
     cy.get('[data-cy="label-title"]').trigger('mouseenter');
@@ -1064,6 +1098,8 @@ describe('The Submit form', () => {
       }
     );
 
+    cy.waitForStableDOM();
+
     cy.get('input[name="url"]').type(
       `https://www.arstechnica.com/gadgets/2017/11/youtube-to-crack-down-on-inappropriate-content-masked-as-kids-cartoons/`
     );
@@ -1098,6 +1134,8 @@ describe('The Submit form', () => {
 
   it('Should submit on step 1', () => {
     cy.visit(url);
+
+    cy.waitForStableDOM();
 
     cy.intercept('GET', parserURL, parseNews).as('parseNews');
 
@@ -1139,6 +1177,8 @@ describe('The Submit form', () => {
 
   it('Should submit on step 2', () => {
     cy.visit(url);
+
+    cy.waitForStableDOM();
 
     cy.intercept('GET', parserURL, parseNews).as('parseNews');
 
@@ -1201,6 +1241,8 @@ describe('The Submit form', () => {
 
     cy.visit(url);
 
+    cy.waitForStableDOM();
+
     cy.contains('button', 'Submit').click();
 
     cy.contains('Please review. Some data is missing.').should('exist');
@@ -1257,6 +1299,8 @@ describe('The Submit form', () => {
 
     cy.visit(url + `?${params.toString()}`);
 
+    cy.waitForStableDOM();
+
     cy.wait('@parseNews');
 
     cy.get('[data-cy="submit-form-title"]').contains('New Incident Response').should('exist');
@@ -1289,6 +1333,9 @@ describe('The Submit form', () => {
         source_domain: `incidentdatabase.ai`,
         cloudinary_id: `reports/incidentdatabase.ai/image.jpg`,
         editor_notes: 'Here are some notes',
+        incident_date: new Date('2022-01-01').toISOString(),
+        date_published: new Date('2021-01-02').toISOString(),
+        date_downloaded: new Date('2021-01-03').toISOString(),
       });
     });
   });
@@ -1322,6 +1369,8 @@ describe('The Submit form', () => {
     cy.intercept('GET', parserURL, parseNews).as('parseNews');
 
     cy.visit(url);
+
+    cy.waitForStableDOM();
 
     const values = {
       url: 'https://incidentdatabase.ai',
@@ -1376,12 +1425,17 @@ describe('The Submit form', () => {
         source_domain: `incidentdatabase.ai`,
         editor_dissimilar_incidents: [2],
         editor_similar_incidents: [3],
+        incident_date: new Date('2022-01-01').toISOString(),
+        date_published: new Date('2021-01-02').toISOString(),
+        date_downloaded: new Date('2021-01-03').toISOString(),
       });
     });
   });
 
   it('Should *not* show related reports based on author', () => {
     cy.visit(url);
+
+    cy.waitForStableDOM();
 
     cy.intercept('GET', parserURL, parseNews).as('parseNews');
 
@@ -1433,6 +1487,8 @@ describe('The Submit form', () => {
     cy.intercept('GET', parserURL, parseNews).as('parseNews');
 
     cy.visit(url);
+
+    cy.waitForStableDOM();
 
     const valuesStep1 = {
       url: 'https://incidentdatabase.ai',
@@ -1506,6 +1562,8 @@ describe('The Submit form', () => {
         source_domain: `incidentdatabase.ai`,
         cloudinary_id: `reports/incidentdatabase.ai/image.jpg`,
         editor_notes: 'Here are some notes',
+        date_published: new Date('2021-01-02').toISOString(),
+        date_downloaded: new Date('2021-01-03').toISOString(),
       });
     });
 
@@ -1518,6 +1576,8 @@ describe('The Submit form', () => {
 
   it('Should allow two submissions in a row', () => {
     cy.visit(url);
+
+    cy.waitForStableDOM();
 
     cy.intercept('GET', parserURL, parseNews).as('parseNews');
 
@@ -1578,6 +1638,8 @@ describe('The Submit form', () => {
       `${url}?url=https%3A%2F%2Fwww.arstechnica.com%2Fgadgets%2F2017%2F11%2Fyoutube-to-crack-down-on-inappropriate-content-masked-as-kids-cartoons%2F`
     );
 
+    cy.waitForStableDOM();
+
     cy.wait('@parseNews');
 
     cy.get('.tw-toast')
@@ -1612,6 +1674,8 @@ describe('The Submit form', () => {
       },
     });
 
+    cy.waitForStableDOM();
+
     cy.conditionalIntercept(
       '**/graphql',
       (req) => req.body.operationName == 'InsertSubmission',
@@ -1641,6 +1705,8 @@ describe('The Submit form', () => {
         source_domain: `incidentdatabase.ai`,
         cloudinary_id: `reports/incidentdatabase.ai/image.jpg`,
         editor_notes: 'Here are some notes',
+        date_published: new Date('2021-01-02').toISOString(),
+        date_downloaded: new Date('2021-01-03').toISOString(),
       });
     });
   });
@@ -1649,6 +1715,8 @@ describe('The Submit form', () => {
     cy.intercept('GET', parserURL, parseNews).as('parseNews');
 
     cy.visit(url);
+
+    cy.waitForStableDOM();
 
     const valuesStep1 = {
       url: 'https://incidentdatabase.ai',
@@ -1803,6 +1871,8 @@ describe('The Submit form', () => {
   it('Should fetch article', () => {
     cy.visit(url);
 
+    cy.waitForStableDOM();
+
     cy.intercept('GET', parserURL).as('parseNews');
 
     cy.get('input[name="url"]').type(
@@ -1822,6 +1892,8 @@ describe('The Submit form', () => {
 
   it('Should fetch article from site using cookies as fallback', () => {
     cy.visit(url);
+
+    cy.waitForStableDOM();
 
     cy.intercept('GET', parserURL).as('parseNews');
 
