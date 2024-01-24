@@ -29,7 +29,7 @@ const LandingPage = (props) => {
 
   const prismicDate = new Date(latestPrismicPost?.nodes[0]?.data.date);
 
-  const latestPost = mdxDate > prismicDate ? latestPostOld : latestPrismicPost;
+  const latestPost = latestPrismicPost && prismicDate < mdxDate ? latestPrismicPost : latestPostOld;
 
   let { sponsors } = props.pageContext;
 
@@ -55,6 +55,8 @@ const LandingPage = (props) => {
 
     return updatedIncident;
   });
+
+  console.log(latestPost);
 
   return (
     // Tailwind has max-w-6xl but no plain w-6xl... 72rem = 6xl
