@@ -61,6 +61,7 @@ export const IndexQuery = graphql`
         fields {
           slug
           title
+          previewText
         }
         body
         excerpt
@@ -74,6 +75,7 @@ export const IndexQuery = graphql`
               gatsbyImageData(layout: FIXED)
             }
           }
+          previewText
         }
       }
     }

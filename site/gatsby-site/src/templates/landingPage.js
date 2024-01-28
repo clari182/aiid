@@ -306,6 +306,7 @@ export const query = graphql`
         body
         excerpt
         frontmatter {
+          previewText
           metaDescription
           slug
           date
