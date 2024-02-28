@@ -19,7 +19,6 @@ const reports = [
     date_published: '2015-05-19',
     date_submitted: '2019-06-01',
     description: 'Description of report 1',
-    epoch_date_downloaded: 1555113600,
     epoch_date_modified: 1592092800,
     epoch_date_published: 1431993600,
     epoch_date_submitted: 1559347200,
@@ -43,7 +42,6 @@ const reports = [
     date_published: '2015-05-19',
     date_submitted: '2019-06-01',
     description: 'Description of report 23',
-    epoch_date_downloaded: 1555113600,
     epoch_date_modified: 1592092800,
     epoch_date_published: 1431993600,
     epoch_date_submitted: 1559347200,
@@ -69,7 +67,6 @@ const reports = [
     date_published: '2015-05-19',
     date_submitted: '2019-06-01',
     description: 'Description of report 40',
-    epoch_date_downloaded: 1555113600,
     epoch_date_modified: 1592092800,
     epoch_date_published: 1431993600,
     epoch_date_submitted: 1559347200,
@@ -176,7 +173,6 @@ describe('Algolia', () => {
       date_published: 1,
       date_submitted: 1,
       description: 1,
-      epoch_date_downloaded: 1,
       epoch_date_modified: 1,
       epoch_date_published: 1,
       epoch_date_submitted: 1,
@@ -299,7 +295,6 @@ describe('Algolia', () => {
       expect(enIndex.replaceAllObjects.getCall(0).args[0][0]).to.deep.nested.include({
         authors: ['Alistair Barr'],
         description: 'Description of report 1',
-        epoch_date_downloaded: 1555113600,
         epoch_date_modified: 1592092800,
         epoch_date_published: 1431993600,
         epoch_date_submitted: 1559347200,
@@ -332,7 +327,6 @@ describe('Algolia', () => {
       expect(enIndex.replaceAllObjects.getCall(0).args[0][1]).to.deep.nested.include({
         authors: ['Alistair Barr'],
         description: 'Description of report 23',
-        epoch_date_downloaded: 1555113600,
         epoch_date_modified: 1592092800,
         epoch_date_published: 1431993600,
         epoch_date_submitted: 1559347200,
@@ -376,7 +370,6 @@ describe('Algolia', () => {
       expect(esIndex.replaceAllObjects.getCall(0).args[0][0]).to.deep.nested.include({
         authors: ['Alistair Barr'],
         description: 'Description of report 1',
-        epoch_date_downloaded: 1555113600,
         epoch_date_modified: 1592092800,
         epoch_date_published: 1431993600,
         epoch_date_submitted: 1559347200,
@@ -410,7 +403,6 @@ describe('Algolia', () => {
       expect(esIndex.replaceAllObjects.getCall(0).args[0][1]).to.deep.nested.include({
         authors: ['Alistair Barr'],
         description: 'Description of report 23',
-        epoch_date_downloaded: 1555113600,
         epoch_date_modified: 1592092800,
         epoch_date_published: 1431993600,
         epoch_date_submitted: 1559347200,
