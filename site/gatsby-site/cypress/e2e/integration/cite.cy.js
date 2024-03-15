@@ -116,18 +116,20 @@ describe('Cite pages', () => {
 
       cy.waitForStableDOM();
 
-      cy.get('[data-cy="latest-incident-report-title"]').then(($value) => {
-        const incidentTitle = $value.text();
+      cy.get('[data-cy="latest-incident-report-title"]')
+        .first()
+        .then(($value) => {
+          const incidentTitle = $value.text();
 
-        cy.contains('Latest Incident Report').first().click();
-        cy.waitForStableDOM();
+          cy.contains('Latest Incident Report').first().click();
+          cy.waitForStableDOM();
 
-        cy.contains('h5', incidentTitle, { timeout: 8000 })
-          .parents('[data-cy="incident-report-card"]')
-          .then((subject) => {
-            expect(subject[0].getBoundingClientRect().top).to.be.closeTo(0, 30);
-          });
-      });
+          cy.contains('h5', incidentTitle, { timeout: 8000 })
+            .parents('[data-cy="incident-report-card"]')
+            .then((subject) => {
+              expect(subject[0].getBoundingClientRect().top).to.be.closeTo(0, 30);
+            });
+        });
     }
   );
 

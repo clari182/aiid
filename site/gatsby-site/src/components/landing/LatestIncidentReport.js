@@ -28,6 +28,7 @@ const LatestIncidentReport = ({ report, key, isLatest = false }) => {
     <div
       className="flex flex-col items-center bg-white rounded-lg border  shadow-md lg:flex-row dark:border-gray-700 dark:bg-gray-800 h-full"
       key={key}
+      data-cy="latest-incident-report-title"
     >
       <div className="lg:flex self-stretch lg:w-1/3 justify-center items-center lg:border-r lg:max-w-sm max-h-240 lg:max-h-[100%]">
         <LocalizedLink
