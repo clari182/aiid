@@ -49,6 +49,7 @@ const SubmissionForm = ({ onChange = null }) => {
     handleChange,
     handleSubmit,
     handleBlur,
+    isValid,
   } = useFormikContext();
 
   const { t } = useTranslation(['submit']);
@@ -163,6 +164,7 @@ const SubmissionForm = ({ onChange = null }) => {
   return (
     <div>
       <Form onSubmit={handleSubmit} className="mx-auto" data-cy="report" onChange={onChange}>
+        {!isValid && <Trans ns="validation">Please review submission. Some data is missing.</Trans>}
         <div className="flex items-center mb-1">
           <FontAwesomeIcon
             fixedWidth

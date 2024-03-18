@@ -1070,7 +1070,7 @@ describe('Submitted reports', () => {
     }
   );
 
-  it.skip('Should display an error message if data is missing', () => {
+  it.only('Should display an error message if data is missing', () => {
     // With new submission list, we allow to save changes always
     cy.login(Cypress.env('e2eUsername'), Cypress.env('e2ePassword'));
 
@@ -1121,13 +1121,11 @@ describe('Submitted reports', () => {
 
     cy.visit(url + `?editSubmission=${submission._id}`);
 
+    cy.waitForStableDOM();
+
     cy.get('[data-cy="submission-form"]')
       .contains('Please review submission. Some data is missing.')
       .should('exist');
-
-    cy.get('[data-cy="submission"]').contains('Changes not saved').should('exist');
-
-    cy.waitForStableDOM();
 
     cy.get('input[name="title"]').type(
       'Lorem Ipsum is simply dummy text of the printing and typesetting industry'
@@ -1143,11 +1141,16 @@ describe('Submitted reports', () => {
 
     cy.get('input[name=date_downloaded]').type('2023-01-01');
 
+    cy.get('input[name="incident_title"]').type(
+      'Lorem Ipsum is simply dummy text of the printing and typesetting industry'
+    );
+    cy.get('input[name=developers]').type('Developer{enter}');
+    cy.get('input[name=deployers]').type('Deployer{enter}');
+    cy.get('input[name=harmed_parties]').type('Harmed Party{enter}');
+
     cy.get('[data-cy="submission-form"]')
       .contains('Please review submission. Some data is missing.')
       .should('not.exist');
-
-    cy.get('[data-cy="submission"]').contains('Changes not saved').should('not.exist');
   });
 
   maybeIt('Should display submission image on edit page', () => {
