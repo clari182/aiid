@@ -361,7 +361,9 @@ function PlotPoint({
           transform: `scale(${scaleMultiplier})`,
           transition: 'opacity 0.4s ease-in-out',
         }}
-        className={`${incident.incident_id == currentIncidentId ? 'current' : ''} hover:z-10`}
+        className={`${
+          incident.incident_id === currentIncidentId ? 'current hover:z-10' : 'hover:z-10'
+        }`}
         onTouchStart={() => {
           setTouchScreen(true);
         }}
