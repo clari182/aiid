@@ -283,7 +283,7 @@ describe('Cite pages', () => {
     cy.get('#input-duplicateIncidentId').type('50');
     cy.waitForStableDOM();
 
-    cy.get('#duplicateIncidentId > a[aria-label="50"]').click();
+    cy.get('#duplicateIncidentId a[aria-label="50"]').click();
     cy.waitForStableDOM();
 
     cy.get('#input-duplicateIncidentId').blur();
