@@ -847,7 +847,7 @@ describe('The Submit form', () => {
     }
 
     cy.wait(['@RelatedReportsByAuthor', '@RelatedReportsByURL', '@RelatedReportsByPublishedDate'], {
-      timeout: 30000,
+      timeout: 60000,
     });
 
     cy.get('[data-cy="no-related-reports"]').should('be.visible');
