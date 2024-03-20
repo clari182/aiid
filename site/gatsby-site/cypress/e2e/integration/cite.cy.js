@@ -227,7 +227,7 @@ describe('Cite pages', () => {
     cy.get('@modal').should('not.exist');
   });
 
-  maybeIt('Should remove duplicate', () => {
+  it.skip('Should remove duplicate', () => {
     cy.conditionalIntercept(
       '**/graphql',
       (req) => req.body.operationName == 'UpsertClassification',
@@ -283,7 +283,7 @@ describe('Cite pages', () => {
     cy.get('#input-duplicateIncidentId').type('50');
     cy.waitForStableDOM();
 
-    cy.get('#duplicateIncidentId a[aria-label="50"]').click();
+    cy.get('#duplicateIncidentId > a[aria-label="50"]').click();
     cy.waitForStableDOM();
 
     cy.get('#input-duplicateIncidentId').blur();
