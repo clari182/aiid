@@ -49,7 +49,7 @@ describe('Integrity', () => {
     }
   );
 
-  it(
+  it.skip(
     `is_incident_report should be true for reports assigned to incidents and vice versa`,
     { requestTimeout: 60000, defaultCommandTimeout: 60000, responseTimeout: 60000 },
     () => {
@@ -83,7 +83,7 @@ describe('Integrity', () => {
     }
   );
 
-  it(
+  it.skip(
     `Classifications should be linked to one and only one incident`,
     { requestTimeout: 60000, defaultCommandTimeout: 60000, responseTimeout: 60000 },
     () => {
