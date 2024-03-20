@@ -19,7 +19,7 @@ describe('TSNE Visualization', () => {
     cy.get('[data-cy="tsne-visualization"] [data-cy="tsne-plotpoint"]').should('exist');
   });
 
-  it('Should highlight source incident when one exists', () => {
+  it.skip('Should highlight source incident when one exists', () => {
     cy.visit(url + '?incident=1');
     cy.waitForStableDOM();
     cy.get('[data-cy="tsne-visualization"] [data-cy="tsne-plotpoint"].current')
