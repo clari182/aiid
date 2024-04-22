@@ -130,7 +130,7 @@ describe('Cite pages', () => {
           cy.contains('Latest Incident Report').first().click();
           cy.waitForStableDOM();
 
-          cy.contains('h5', incidentTitle, { timeout: 8000 })
+          cy.contains('h1', incidentTitle, { timeout: 8000 })
             .parents('[data-cy="incident-report-card"]')
             .then((subject) => {
               expect(subject[0].getBoundingClientRect().top).to.be.closeTo(0, 30);
