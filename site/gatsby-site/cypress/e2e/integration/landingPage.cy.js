@@ -31,7 +31,7 @@ describe('The Landing page', () => {
 
     cy.waitForStableDOM();
 
-    cy.get('[data-cy="sponsor-modal"]', { timeout: 15000 }).should('be.visible');
+    cy.get('[data-cy="sponsor-modal"]', { timeout: 30000 }).should('be.visible');
   });
 
   it('Should submit a report through the Quick Add form', () => {

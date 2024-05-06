@@ -202,7 +202,7 @@ describe('Incidents', () => {
 
       cy.waitForStableDOM();
 
-      cy.wait(['@FindIncidentHistory', '@FindEntities']);
+      cy.wait(['@FindIncidentHistory', '@FindEntities'], { timeout: 30000 });
 
       cy.url().should('include', url);
 

@@ -3,7 +3,7 @@ describe('Social Share buttons on pages', { retries: { runMode: 4 } }, () => {
 
   const incidentUrl = `/cite/${incidentId}/`;
 
-  const blogPostUrl = `/blog/join-raic`;
+  const blogPostUrl = `/blog/join-raic/`;
 
   const shareButtonsPerSection = 4;
 
@@ -38,25 +38,20 @@ describe('Social Share buttons on pages', { retries: { runMode: 4 } }, () => {
     const canonicalUrl = `https://incidentdatabase.ai${url}`;
 
     // Twitter share
-    it.skip(`${page} page should have a Twitter share button`, () => {
+    it(`${page} page should have a Twitter share button`, () => {
       cy.visit(url);
 
       cy.get('[data-cy=btn-share-twitter]').should('exist');
       cy.window().then((win) => {
-        cy.stub(win, 'open')
-          .callsFake((url) => {
-            win.location.href = url;
-          })
-          .as('popup_twitter');
+        cy.stub(win, 'open').as('popup_twitter');
       });
 
       cy.waitForStableDOM();
-
       cy.get('[data-cy=btn-share-twitter]').first().click();
       cy.get('@popup_twitter', { timeout: 8000 }).should('be.called');
-      cy.url().should(
-        'contain',
-        `https://twitter.com/intent/tweet?text=${encodeURI(title)}&url=${canonicalUrl}`
+      cy.get('@popup_twitter').should(
+        'be.calledWith',
+        `https://twitter.com/intent/tweet?text=${title}&url=${canonicalUrl}`
       );
     });
 

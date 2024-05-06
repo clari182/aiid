@@ -88,7 +88,7 @@ const CardBody = ({
   return (
     <div className="h-full p-6">
       <LocalizedLink to={`/cite/${incident.incident_id}`} className="text-gray-900">
-        <h4 className="text-2xl">
+        <h4 className="text-2xl" data-cy="latest-incident-report-title">
           Incident {incident.incident_id}: {incident.title}
         </h4>
       </LocalizedLink>

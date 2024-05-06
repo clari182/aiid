@@ -7,19 +7,20 @@ describe('The CSET taxonomy page', () => {
   ];
 
   urls.forEach(({ namespace, url }) => {
-    it.skip(`successfully loads ${namespace}`, () => {
+    it(`successfully loads ${namespace}`, () => {
       cy.visit(url);
     });
+  });
 
-    it.skip(`Should render ${namespace} fields list and Searchable status`, () => {
-      cy.visit(url);
+  it(`Should render CSETv0 fields list and Searchable status`, () => {
+    cy.visit('/taxonomy/csetv0');
 
-      cy.waitForStableDOM();
+    cy.waitForStableDOM();
 
-      cy.query({
-        query: gql`
+    cy.query({
+      query: gql`
         {
-          taxa(query: { namespace_in: ["${namespace}"] }) {
+          taxa(query: { namespace_in: ["CSETv0"] }) {
             namespace
             field_list {
               long_name
@@ -30,28 +31,27 @@ describe('The CSET taxonomy page', () => {
           }
         }
       `,
-      })
-        .then(
-          ({
-            data: {
-              taxa: { field_list },
-            },
-          }) => {
-            return field_list.filter(
-              (entry) => (entry.public === null || entry.public) && entry.short_name !== 'Publish'
-            );
-          }
-        )
-        .then((field_list) => {
-          cy.get('[data-cy*="field-"]').should('have.length', field_list.length);
+    })
+      .then(
+        ({
+          data: {
+            taxa: { field_list },
+          },
+        }) => {
+          return field_list.filter(
+            (entry) => (entry.public === null || entry.public) && entry.short_name !== 'Publish'
+          );
+        }
+      )
+      .then((field_list) => {
+        cy.get('[data-cy*="field-"]').should('have.length', field_list.length);
 
-          field_list.forEach((field) => {
-            cy.contains('h3', field.long_name.replace(/\s{2,}/g, ' '))
-              .should('exist')
-              .contains('span', 'Searchable in Discover App')
-              .should(field.instant_facet ? 'exist' : 'not.exist');
-          });
+        field_list.forEach((field) => {
+          cy.contains('h3', field.long_name.replace(/\s{2,}/g, ' '))
+            .should('exist')
+            .contains('span', 'Searchable in Discover App')
+            .should(field.instant_facet ? 'exist' : 'not.exist');
         });
-    });
+      });
   });
 });
