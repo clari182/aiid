@@ -39,12 +39,6 @@ exports.handler = async function (event) {
 // Runs first with { cookies: false },
 // then on error recurses with { cookies: true } as a fallback.
 const getArticle = async (url, config) => {
-  const TIMEOUT_DURATION = 10000; // Timeout after 10 seconds
-
-  const timeoutPromise = new Promise((_, reject) =>
-    setTimeout(() => reject(new Error('Parser.parse timed out')), TIMEOUT_DURATION)
-  );
-
   try {
     const parserConfig = { contentType: 'markdown' };
 
@@ -52,24 +46,13 @@ const getArticle = async (url, config) => {
       parserConfig.html = await getHtmlWithCookies(url);
     }
 
-    // Race the Parser.parse call with the timeout
-    const article = await Promise.race([
-      Parser.parse(url, parserConfig),
-      timeoutPromise
-    ]);
+    const article = await Parser.parse(url, parserConfig);
 
     return article;
   } catch (error) {
-    console.log("Couldn't parse article", error.message);
-
-    if (error.message === 'Parser.parse timed out') {
-      console.log('The parser timed out. Retrying...');
-    }
-
     if (config.cookies) {
-      throw error; // Rethrow the error if cookies were already enabled
+      throw error;
     } else {
-      console.log('Retrying with cookies enabled');
       return await getArticle(url, { cookies: true });
     }
   }
