@@ -26,6 +26,8 @@ const UserSubscriptions = () => {
 
   const [isSubscribeToNewIncidents, setIsSubscribeToNewIncidents] = useState(false);
 
+  const [isSubscribeToAiWeeklyBriefing, setIsSubscribeToAiWeeklyBriefing] = useState(false);
+
   const { data, loading } = useQuery(FIND_USER_SUBSCRIPTIONS, {
     variables: { filter: { userId: { EQ: user.id } } },
   });
@@ -33,6 +35,9 @@ const UserSubscriptions = () => {
   const [deleteSubscriptions, { loading: deleting }] = useMutation(DELETE_SUBSCRIPTIONS);
 
   const [subscribeToNewIncidentsMutation, { loading: subscribingToNewIncidents }] =
+    useMutation(UPSERT_SUBSCRIPTION);
+
+  const [subscribeToAiWeeklyBriefingMutation, { loading: subscribingToAiWeeklyBriefing }] =
     useMutation(UPSERT_SUBSCRIPTION);
 
   const handleDeleteSubscription = async (subscriptionId) => {
@@ -77,7 +82,13 @@ const UserSubscriptions = () => {
       (s) => s.type == SUBSCRIPTION_TYPE.newIncidents
     );
 
+    const hasAiWeeklyBriefingSubscription = data?.subscriptions.some(
+      (s) => s.type == SUBSCRIPTION_TYPE.aiWeeklyBriefing
+    );
+
     setIsSubscribeToNewIncidents(hasSubscription);
+
+    setIsSubscribeToAiWeeklyBriefing(hasAiWeeklyBriefingSubscription);
   }, [user, data]);
 
   const onSusbcribeToggle = async (checked) => {
@@ -106,8 +117,39 @@ const UserSubscriptions = () => {
     setIsSubscribeToNewIncidents(checked);
   };
 
+  const onSusbcribeAiWeeklyBriefingToggle = async (checked) => {
+    if (checked) {
+      await subscribeToAiWeeklyBriefingMutation({
+        variables: {
+          filter: { type: { EQ: SUBSCRIPTION_TYPE.aiWeeklyBriefing }, userId: { EQ: user.id } },
+          update: {
+            type: SUBSCRIPTION_TYPE.aiWeeklyBriefing,
+            userId: { link: user.id },
+          },
+        },
+      });
+    } else {
+      await deleteSubscriptions({
+        variables: {
+          filter: { type: { EQ: SUBSCRIPTION_TYPE.aiWeeklyBriefing }, userId: { EQ: user.id } },
+        },
+      });
+    }
+    setIsSubscribeToAiWeeklyBriefing(checked);
+  };
+
   return (
     <div className="mt-4">
+      <div className="my-4">
+        <ToggleSwitch
+          id="subscribe-ai-weekly-briefing"
+          checked={isSubscribeToAiWeeklyBriefing}
+          label={t('Receive weekly AI Incident Briefing')}
+          onChange={onSusbcribeAiWeeklyBriefingToggle}
+          name="subscribe-ai-weekly-briefing"
+          disabled={loading || deleting || subscribingToAiWeeklyBriefing}
+        />
+      </div>
       <div className="my-4">
         <ToggleSwitch
           id="subscribe-all"
