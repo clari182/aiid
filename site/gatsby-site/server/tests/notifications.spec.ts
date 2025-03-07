@@ -840,6 +840,12 @@ describe(`Notifications`, () => {
                 entity_id: null,
             },
             {
+                type: "ai-weekly-briefing",
+                incident_id: 1,
+                processed: false,
+                entity_id: null,
+            },
+            {
                 type: "entity",
                 incident_id: 1,
                 processed: false,
@@ -949,10 +955,16 @@ describe(`Notifications`, () => {
 
         expect(result.body.data.notifications).toMatchObject([
             {
-                type: "new-incidents",
+              type: "new-incidents",
+              incident_id: 1,
+              processed: false,
+              entity_id: null,
+            },
+            {
+                entity_id: null,
                 incident_id: 1,
                 processed: false,
-                entity_id: null,
+                type: "ai-weekly-briefing",
             },
             {
                 entity_id: "entity-1",
