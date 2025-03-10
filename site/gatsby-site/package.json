@@ -151,6 +151,8 @@
     "clean": "gatsby clean",
     "process-notifications": "npx tsx --env-file=.env src/scripts/process-notifications.ts",
     "process-notifications:ci": "npx tsx src/scripts/process-notifications.ts",
+    "process-weekly-notifications": "npx tsx --env-file=.env src/scripts/process-weekly-notifications.ts",
+    "process-weekly-notifications:ci": "npx tsx src/scripts/process-weekly-notifications.ts",
     "translate-reports": "node src/scripts/translateReports.js",
     "import-classifications-csv": "npx tsx --env-file=.env src/scripts/import-classifications-csv.ts",
     "magic-link": "npx tsx --env-file=.env src/scripts/magic-link.ts $1 $2"
