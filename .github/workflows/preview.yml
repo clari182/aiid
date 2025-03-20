@@ -71,4 +71,4 @@ jobs:
     with:
       sha: ${{ github.event.pull_request.head.sha }}
       environment: staging
-      site-url: https://test.com
+      site-url: https://pr-${{ github.event.pull_request.number }}--${{ vars.NETLIFY_SITE_NAME || 'staging-aiid' }}.netlify.app
