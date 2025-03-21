@@ -2,7 +2,6 @@ import { MongoClient, ObjectId } from "mongodb";
 import config from "../config";
 import { Context, DBIncident, DBIncidentHistory, DBNotification, DBReport, DBReportHistory } from "../interfaces";
 import _ from "lodash";
-import jwt from 'jsonwebtoken';
 
 export const incidentEmbedding = (reports: Record<string, any>[]) => {
     reports = reports.filter((report) => report.embedding);
@@ -88,6 +87,38 @@ export interface UserAdminData {
     userId?: string;
 }
 
+const usersCache: UserAdminData[] = [];
+
+export const clearUsersCache = () => {
+  usersCache.length = 0;
+}
+
+export const getAndCacheRecipients = async (userIds: string[], context: Context) => {
+
+  const recipients = [];
+
+  for (const userId of userIds) {
+
+    let user = usersCache.find((user) => user.userId === userId) ?? null;
+
+    if (!user) {
+
+      user = await getUserAdminData(userId, context) ?? null;
+
+      if (user) {
+
+        usersCache.push(user);
+      }
+    }
+
+    if (user?.email && user?.userId) {
+      recipients.push({ email: user.email, userId: user.userId });
+    }
+  }
+
+  return recipients;
+}
+
 export const getUserAdminData = async (userId: string, context: Context): Promise<UserAdminData | null> => {
 
     const authUsersCollection = context.client.db('auth').collection("users");
@@ -120,6 +151,13 @@ export const createNotificationsOnNewIncident = async (fullDocument: DBIncident,
         incident_id: incidentId,
         processed: false,
         created_at: new Date(),
+    });
+
+    await notificationsCollection.insertOne({
+      type: 'ai-weekly-briefing',
+      incident_id: incidentId,
+      processed: false,
+      created_at: new Date(),
     });
 
     const entityFields: (keyof DBIncident)[] = [
